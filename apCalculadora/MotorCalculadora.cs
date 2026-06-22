@@ -10,13 +10,13 @@ namespace Calculadora.Core
     {
         private const string CaracteresOperadores = "^*/+-()";
 
-        public ResultadoCalculo Calcular(string expressao)
+        public ResultadoCalculo Calcular(string cadeia)
         {
-            if (string.IsNullOrWhiteSpace(expressao))
+            if (string.IsNullOrWhiteSpace(cadeia))
                 throw new ArgumentException("A expressão não pode ser vazia.");
 
-            List<string> tokens = Tokenizar(expressao);
-            (double[] valores, string infixaLetras) = MapearOperandos(tokens);
+            var dados = LerCadeia(cadeia);
+            (double[] valores, string infixaLetras) = MapearOperandos(dados);
 
             string posfixa = ConverterInfixaParaPosfixa(infixaLetras);
             double resultado = AvaliarPosfixa(posfixa, valores);
@@ -24,54 +24,74 @@ namespace Calculadora.Core
             return new ResultadoCalculo(infixaLetras, posfixa, valores, resultado);
         }
 
-        private static List<string> Tokenizar(string expressao)
+        private  List<string> LerCadeia(string cadeia)
         {
-            var tokens = new List<string>();
+            List<string> dados = new List<string>();
             int i = 0;
 
-            while (i < expressao.Length)
+            while (i < cadeia.Length)
             {
-                char c = expressao[i];
+                    char c = cadeia[i];
 
-                if (char.IsWhiteSpace(c)) { i++; continue; }
-
-                bool ehSinalUnario = (c == '-' || c == '+')
-                    && (tokens.Count == 0 || tokens[tokens.Count - 1] == "(");
-
-                if (char.IsDigit(c) || c == '.' || ehSinalUnario)
-                {
-                    var sb = new StringBuilder();
-                    if (ehSinalUnario) { sb.Append(c); i++; }
-
-                    while (i < expressao.Length
-                           && (char.IsDigit(expressao[i]) || expressao[i] == '.'))
+                    if (c == ' ')
+                        i++;
+           
+                    else if ((c >= '0' && c <= '9') || c == '.' || ((c == '+' || c == '-') && (dados.Count == 0 || dados[dados.Count - 1] == "(")))
                     {
-                        sb.Append(expressao[i++]);
+                        string numero = LerNumero(cadeia, ref i, dados);
+                        dados.Add(numero);
+                    } 
+
+                    else if (EhOperador(c))
+                    {
+                        dados.Add(c.ToString());
+                        i++;
                     }
-
-                    string numStr = sb.ToString();
-                    if (!double.TryParse(numStr, NumberStyles.Any,
-                                         CultureInfo.InvariantCulture, out _))
+                    else
+                    {
                         throw new FormatException(
-                            $"Token numérico inválido: '{numStr}'.");
-
-                    tokens.Add(numStr);
-                    continue;
-                }
-
-                if (CaracteresOperadores.Contains(c))
-                {
-                    tokens.Add(c.ToString());
-                    i++;
-                    continue;
-                }
-
-                throw new FormatException(
-                    $"Caractere inválido '{c}' na posição {i} da expressão.");
+                            $"Caractere inválido '{c}' na posição {i}.");
+                    }
             }
-
-            return tokens;
+            return dados;
         }
+
+
+        private static bool EhOperador(char c)
+        {
+            return c == '+' ||
+                   c == '-' ||
+                   c == '*' ||
+                   c == '/' ||
+                   c == '^' ||
+                   c == '(' ||
+                   c == ')';
+        }
+        private static string LerNumero(string cadeia, ref int i, List<string> dados)
+        {
+            string numero = "";
+            if ((cadeia[i] == '+' || cadeia[i] == '-') &&
+                (dados.Count == 0 || dados[dados.Count - 1] == "("))
+            {
+                numero += cadeia[i];
+                i++;
+            }
+            while (i < cadeia.Length)
+            {
+                char c = cadeia[i];
+
+                if ((c >= '0' && c <= '9') || c == '.')
+                {
+                    numero += c;
+                    i++;
+                }
+                else
+                    break;
+            }
+            double.Parse(numero);
+            return numero;
+        }
+
 
         private static (double[] valores, string infixaLetras)
             MapearOperandos(List<string> tokens)
@@ -222,10 +242,7 @@ namespace Calculadora.Core
 
             return PrioridadeNumerica(topo) <= PrioridadeNumerica(lido);
         }
-
-        /// <summary>
-        /// Prioridade numérica: menor valor = maior prioridade aritmética.
-        /// </summary>
+        
         private static int PrioridadeNumerica(char op)
         {
             switch (op)
@@ -245,9 +262,7 @@ namespace Calculadora.Core
                     return int.MaxValue;
             }
         }
-
-        private static bool EhOperador(char c)
-            => CaracteresOperadores.IndexOf(c) >= 0;
+       
 
         private static bool EhOperadorOuParentese(string token)
             => token.Length == 1 && EhOperador(token[0]);
