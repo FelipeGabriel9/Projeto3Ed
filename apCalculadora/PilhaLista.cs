@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 
 public class PilhaLista<T> : IStack<T> 
-            where T: IComparable<T>, IRegistro<T>, new()
+            where T: IComparable<T>, new()
 {
     NoLista<T> topo;    // primeiro nó da lista/pilha
     int tamanho;        // quantidade de elementos na pilha

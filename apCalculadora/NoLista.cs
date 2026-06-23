@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class NoLista<T> where T : IComparable<T>, IRegistro<T>, new()
+public class NoLista<T> where T : IComparable<T>, new()
 {
     private T info;
     private NoLista<T> prox;

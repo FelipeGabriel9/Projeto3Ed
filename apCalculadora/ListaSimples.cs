@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 
 public class ListaSimples<T> where T : IComparable<T>,
-                                       IRegistro<T>,
                                        new()
 {
     protected NoLista<T>    primeiro,       // ponteiro que aponta para o primeiro nó

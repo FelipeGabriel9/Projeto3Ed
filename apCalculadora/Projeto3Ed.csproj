@@ -55,7 +55,6 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="IPilha.cs" />
-    <Compile Include="IRegistro.cs" />
     <Compile Include="IStack.cs" />
     <Compile Include="ListaSimples.cs" />
     <Compile Include="MotorCalculadora.cs" />
