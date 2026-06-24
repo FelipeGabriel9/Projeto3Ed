@@ -10,14 +10,16 @@ public class ResultadoCalculo
     public double[] Valores { get; }
     public double Resultado { get; }
 
+
     // Construtor da classe
-    public ResultadoCalculo(string infixa, string posfixa, double[] valores, double resultado)
+    public ResultadoCalculo(string infixa, string posfixa, double[] valores, double resultado)  
     {
         Infixa = infixa;
         Posfixa = posfixa;
         Valores = valores;
         Resultado = resultado;
     }
+
 
     // Método que percorre toda a expressão recebida
     public List<string> LerCadeia(string cadeia)
@@ -75,7 +77,7 @@ public class ResultadoCalculo
         return dados;   // Retorna a lista de dados
     }
 
-    public static void CriarVetorEInfixa(List<string> tokens, out double[] valores, out string infixaLetras)
+    public static void CriarVetorEInfixa(List<string> tokens, out double[] valores, out string infixaLetras)    
     {
         valores = new double[26];
         var sb = new StringBuilder();
@@ -101,27 +103,33 @@ public class ResultadoCalculo
         infixaLetras = sb.ToString();
     }
 
-    private bool EhOperador(char caractere)      // Método que verifica se o caractere é um operador
+
+    // Método que verifica se o caractere é um operador
+    private bool EhOperador(char caractere) 
     {
         return caractere == '+' || caractere == '-' || caractere == '*' || caractere == '/' || caractere == '^' ||
                 caractere == '(' || caractere == ')';
     }
 
-    private bool TemPrecedencia(char topo, char lido)
+
+    // Método que verifica se o operador que está no topo da pilha deve ser executado 
+    // antes do operador que acabou de ser lido da expressão
+    private bool DeveDesempilhar(char topo, char lido)
     {
-        if (lido == '(') 
+        if (lido == '(')    // Se o operador lido for '(', não desempilha nada, apenas empilha
             return false;
 
-        if (topo == '(') 
+        if (topo == '(')    // Se o operador no topo da pilha for '(', não desempilha nada, apenas empilha
             return false;
 
-        int prioTopo = Prioridade(topo);
-        int prioLido = Prioridade(lido);
+        // Obtém o nível de prioridade dos operadores
+        int prioridadeTopo = Prioridade(topo);
+        int prioridadeLido = Prioridade(lido);
 
         if (lido == '^')
-            return prioTopo > prioLido;
+            return prioridadeTopo > prioridadeLido;
 
-        return prioTopo >= prioLido;
+        return prioridadeTopo >= prioridadeLido;
     }
 
     // Método que devolve a prioridade de um operando
@@ -155,7 +163,7 @@ public class ResultadoCalculo
             {
                 bool parar = false;
 
-                while (!parar && !umaPilha.EstaVazia && TemPrecedencia(umaPilha.oTopo(), simboloLido))
+                while (!parar && !umaPilha.EstaVazia && DeveDesempilhar(umaPilha.oTopo(), simboloLido))
                 {
                     char operadorComMaiorPrecedencia = umaPilha.Desempilhar();
                     if (operadorComMaiorPrecedencia != '(')
