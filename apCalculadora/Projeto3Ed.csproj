@@ -54,13 +54,9 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IPilha.cs" />
     <Compile Include="IStack.cs" />
     <Compile Include="ListaSimples.cs" />
-    <Compile Include="MotorCalculadora.cs" />
-    <Compile Include="No.cs" />
     <Compile Include="NoLista.cs" />
-    <Compile Include="Pilha.cs" />
     <Compile Include="PilhaLista.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

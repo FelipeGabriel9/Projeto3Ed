@@ -277,46 +277,4 @@ public class ListaSimples<T> where T : IComparable<T>,
 
         primeiro = anterior;            // o último elemento passa a ser o primeiro
     }
-
-    public bool LeuDados(string nomeArquivo)    // Método que retorna se foi possível ler um arquivo
-    {
-        try
-        {
-            var arquivo = new StreamReader(nomeArquivo);    // abre o arquivo com o nome recebido
-            this.primeiro = null;
-            this.ultimo = null;
-            while (!arquivo.EndOfStream)            // enquanto o arquivo não chegou ao fim
-            {   
-                var novoDado = new T();             // criamos um novo objeto
-                novoDado.LerRegistro(arquivo);      // lemos o valor que esse dado armazenará
-                InseriuEmOrdem(novoDado);           // insere o novo objeto na lista
-            }
-            arquivo.Close();    // fechamos o arquivo
-            return true;        // retorna que lemos os dados sem erro
-        }
-        catch (Exception ex)
-        {
-            return false;       // retorna que não foi possível ler os dados
-        }
-    }
-
-    public bool SalvouDados(string nomeArquivo)     // Método que retorna se foi possível gravar dados no arquivo
-    {
-        try
-        {
-            var arquivoDeSaida = new StreamWriter(nomeArquivo); // abre o arquivo com o nome recebido
-            atual = primeiro;
-            while (atual != null)       // enquanto existe dados na lista
-            {
-                atual.Info.GravarRegistro(arquivoDeSaida);  // gravamos um dado
-                atual = atual.Prox;                         // andamos com o ponteiro para o próximo elemento
-            }
-            arquivoDeSaida.Close();     // fechamos o arquivo
-            return true;                // retorna que não houve erro ao gravar os dados
-        }
-        catch (Exception ex)
-        {
-            return false;               // retorna que não foi possível gravar os dados
-        }
-    }
 }

@@ -1,5 +1,4 @@
-﻿using Calculadora.Core;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,7 +28,7 @@ namespace Projeto3Ed
             {
                 txtVisor.Clear();
                 txtResultado.Clear();
-                lbSequencias.Text = "Pósfixa:";
+                lbSequencias.Items.Add("Pósfixa:");
                 exibiuResultado = false;
             }
             else if (exibiuResultado && EhOperadorSimples(texto[0]))
