@@ -30,7 +30,6 @@
         {
             this.txtVisor = new System.Windows.Forms.TextBox();
             this.txtResultado = new System.Windows.Forms.TextBox();
-            this.lbSequencias = new System.Windows.Forms.ListBox();
             this.btnPotencia = new System.Windows.Forms.Button();
             this.btnMultiplicacao = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
@@ -51,6 +50,7 @@
             this.button21 = new System.Windows.Forms.Button();
             this.button23 = new System.Windows.Forms.Button();
             this.button25 = new System.Windows.Forms.Button();
+            this.lbSequencias = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // txtVisor
@@ -70,20 +70,10 @@
             this.txtResultado.Size = new System.Drawing.Size(355, 26);
             this.txtResultado.TabIndex = 1;
             // 
-            // lbSequencias
-            // 
-            this.lbSequencias.FormattingEnabled = true;
-            this.lbSequencias.ItemHeight = 20;
-            this.lbSequencias.Location = new System.Drawing.Point(18, 120);
-            this.lbSequencias.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
-            this.lbSequencias.Name = "lbSequencias";
-            this.lbSequencias.Size = new System.Drawing.Size(355, 84);
-            this.lbSequencias.TabIndex = 2;
-            // 
             // btnPotencia
             // 
             this.btnPotencia.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnPotencia.Location = new System.Drawing.Point(18, 231);
+            this.btnPotencia.Location = new System.Drawing.Point(17, 200);
             this.btnPotencia.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnPotencia.Name = "btnPotencia";
             this.btnPotencia.Size = new System.Drawing.Size(83, 35);
@@ -95,7 +85,7 @@
             // btnMultiplicacao
             // 
             this.btnMultiplicacao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnMultiplicacao.Location = new System.Drawing.Point(200, 231);
+            this.btnMultiplicacao.Location = new System.Drawing.Point(199, 200);
             this.btnMultiplicacao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnMultiplicacao.Name = "btnMultiplicacao";
             this.btnMultiplicacao.Size = new System.Drawing.Size(83, 35);
@@ -107,7 +97,7 @@
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button3.Location = new System.Drawing.Point(109, 366);
+            this.button3.Location = new System.Drawing.Point(108, 335);
             this.button3.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(83, 35);
@@ -119,7 +109,7 @@
             // btnIgual
             // 
             this.btnIgual.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnIgual.Location = new System.Drawing.Point(109, 411);
+            this.btnIgual.Location = new System.Drawing.Point(108, 380);
             this.btnIgual.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnIgual.Name = "btnIgual";
             this.btnIgual.Size = new System.Drawing.Size(83, 35);
@@ -131,7 +121,7 @@
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button5.Location = new System.Drawing.Point(18, 321);
+            this.button5.Location = new System.Drawing.Point(17, 290);
             this.button5.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(83, 35);
@@ -143,7 +133,7 @@
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button6.Location = new System.Drawing.Point(18, 276);
+            this.button6.Location = new System.Drawing.Point(17, 245);
             this.button6.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(83, 35);
@@ -155,7 +145,7 @@
             // btnDivisao
             // 
             this.btnDivisao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnDivisao.Location = new System.Drawing.Point(109, 231);
+            this.btnDivisao.Location = new System.Drawing.Point(108, 200);
             this.btnDivisao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDivisao.Name = "btnDivisao";
             this.btnDivisao.Size = new System.Drawing.Size(83, 35);
@@ -167,7 +157,7 @@
             // btnSubtracao
             // 
             this.btnSubtracao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnSubtracao.Location = new System.Drawing.Point(291, 231);
+            this.btnSubtracao.Location = new System.Drawing.Point(290, 200);
             this.btnSubtracao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnSubtracao.Name = "btnSubtracao";
             this.btnSubtracao.Size = new System.Drawing.Size(83, 35);
@@ -179,7 +169,7 @@
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button10.Location = new System.Drawing.Point(200, 276);
+            this.button10.Location = new System.Drawing.Point(199, 245);
             this.button10.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(83, 35);
@@ -191,7 +181,7 @@
             // btnAdicao
             // 
             this.btnAdicao.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.btnAdicao.Location = new System.Drawing.Point(291, 276);
+            this.btnAdicao.Location = new System.Drawing.Point(290, 245);
             this.btnAdicao.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAdicao.Name = "btnAdicao";
             this.btnAdicao.Size = new System.Drawing.Size(83, 35);
@@ -203,7 +193,7 @@
             // button12
             // 
             this.button12.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button12.Location = new System.Drawing.Point(109, 321);
+            this.button12.Location = new System.Drawing.Point(108, 290);
             this.button12.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(83, 35);
@@ -215,7 +205,7 @@
             // button13
             // 
             this.button13.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button13.Location = new System.Drawing.Point(109, 276);
+            this.button13.Location = new System.Drawing.Point(108, 245);
             this.button13.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button13.Name = "button13";
             this.button13.Size = new System.Drawing.Size(83, 35);
@@ -227,7 +217,7 @@
             // button14
             // 
             this.button14.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button14.Location = new System.Drawing.Point(18, 411);
+            this.button14.Location = new System.Drawing.Point(17, 380);
             this.button14.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button14.Name = "button14";
             this.button14.Size = new System.Drawing.Size(83, 35);
@@ -239,7 +229,7 @@
             // button15
             // 
             this.button15.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button15.Location = new System.Drawing.Point(18, 366);
+            this.button15.Location = new System.Drawing.Point(17, 335);
             this.button15.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button15.Name = "button15";
             this.button15.Size = new System.Drawing.Size(83, 35);
@@ -251,7 +241,7 @@
             // button16
             // 
             this.button16.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button16.Location = new System.Drawing.Point(200, 366);
+            this.button16.Location = new System.Drawing.Point(199, 335);
             this.button16.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(83, 35);
@@ -263,7 +253,7 @@
             // button17
             // 
             this.button17.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button17.Location = new System.Drawing.Point(200, 411);
+            this.button17.Location = new System.Drawing.Point(199, 380);
             this.button17.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(83, 35);
@@ -275,7 +265,7 @@
             // button18
             // 
             this.button18.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button18.Location = new System.Drawing.Point(290, 321);
+            this.button18.Location = new System.Drawing.Point(289, 290);
             this.button18.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(83, 35);
@@ -287,7 +277,7 @@
             // button21
             // 
             this.button21.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button21.Location = new System.Drawing.Point(200, 321);
+            this.button21.Location = new System.Drawing.Point(199, 290);
             this.button21.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button21.Name = "button21";
             this.button21.Size = new System.Drawing.Size(83, 35);
@@ -299,7 +289,7 @@
             // button23
             // 
             this.button23.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button23.Location = new System.Drawing.Point(291, 366);
+            this.button23.Location = new System.Drawing.Point(290, 335);
             this.button23.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button23.Name = "button23";
             this.button23.Size = new System.Drawing.Size(83, 35);
@@ -311,7 +301,7 @@
             // button25
             // 
             this.button25.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            this.button25.Location = new System.Drawing.Point(291, 411);
+            this.button25.Location = new System.Drawing.Point(290, 380);
             this.button25.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.button25.Name = "button25";
             this.button25.Size = new System.Drawing.Size(83, 35);
@@ -320,11 +310,20 @@
             this.button25.UseVisualStyleBackColor = false;
             this.button25.Click += new System.EventHandler(this.BtnCaractere_Click);
             // 
+            // lbSequencias
+            // 
+            this.lbSequencias.AutoSize = true;
+            this.lbSequencias.Location = new System.Drawing.Point(23, 114);
+            this.lbSequencias.Name = "lbSequencias";
+            this.lbSequencias.Size = new System.Drawing.Size(0, 20);
+            this.lbSequencias.TabIndex = 28;
+            // 
             // apCalculadora
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(392, 457);
+            this.ClientSize = new System.Drawing.Size(392, 422);
+            this.Controls.Add(this.lbSequencias);
             this.Controls.Add(this.button25);
             this.Controls.Add(this.button23);
             this.Controls.Add(this.button21);
@@ -345,7 +344,6 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.btnMultiplicacao);
             this.Controls.Add(this.btnPotencia);
-            this.Controls.Add(this.lbSequencias);
             this.Controls.Add(this.txtResultado);
             this.Controls.Add(this.txtVisor);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -361,7 +359,6 @@
 
         private System.Windows.Forms.TextBox txtVisor;
         private System.Windows.Forms.TextBox txtResultado;
-        private System.Windows.Forms.ListBox lbSequencias;
         private System.Windows.Forms.Button btnPotencia;
         private System.Windows.Forms.Button btnMultiplicacao;
         private System.Windows.Forms.Button button3;
@@ -382,6 +379,7 @@
         private System.Windows.Forms.Button button21;
         private System.Windows.Forms.Button button23;
         private System.Windows.Forms.Button button25;
+        private System.Windows.Forms.Label lbSequencias;
     }
 }
 

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-public class ResultadoCalculo
+public class CalcularResultado
 {
     // Propriedades da classe 
     public string Infixa { get; }
@@ -12,7 +12,7 @@ public class ResultadoCalculo
 
 
     // Construtor da classe
-    public ResultadoCalculo(string infixa, string posfixa, double[] valores, double resultado)  
+    public CalcularResultado(string infixa, string posfixa, double[] valores, double resultado)
     {
         Infixa = infixa;
         Posfixa = posfixa;
@@ -36,20 +36,19 @@ public class ResultadoCalculo
 
             if (char.IsDigit(caractere) || caractere == '.')    // Verifica se o caractere é um decimal (está entre 0 e 9) e se é um ponto (.)
             {
-                var numero = "";
+                var resultado = "";
                 while (indice < cadeia.Length && (char.IsDigit(cadeia[indice]) || cadeia[indice] == '.'))  // Enquanto a expressão não chegou ao fim e é um caratere válido
                 {
-                    numero += cadeia[indice];   // Adiciona o dado lido à variável numero
+                    resultado += cadeia[indice];   // Adiciona o dado lido à variável numero
                     indice++;
                 }
-                dados.Add(numero.ToString());   // Adiciona o número à lista de dados
+                dados.Add(resultado.ToString());   // Adiciona o número à lista de dados
                 continue;
             }
 
             if (caractere == '-' && (dados.Count == 0 || dados[dados.Count - 1] == "("))    // Verifica se o caractere é '-' e se está antes de um número
             {
-                var numero = "";
-                numero += caractere;
+                var numero = "-";
                 indice++;
 
                 while (indice < cadeia.Length && (char.IsDigit(cadeia[indice]) || cadeia[indice] == '.'))  // Enquanto a expressão não chegou ao fim e é um caratere válido
@@ -77,35 +76,37 @@ public class ResultadoCalculo
         return dados;   // Retorna a lista de dados
     }
 
-    public static void CriarVetorEInfixa(List<string> tokens, out double[] valores, out string infixaLetras)    
-    {
-        valores = new double[26];
-        var sb = new StringBuilder();
-        int letraIdx = 0;
 
-        foreach (string tok in tokens)
+    // Método que cria o vetor de valores e substitui os operandos por letras
+    public static void CriarVetorEInfixa(List<string> dados, out double[] valores, out string letrasInfixa)
+    {
+        valores = new double[26];   // Cria um vetor de 26 posições para armazenar os valores dos operandos
+        var texto = "";             // String que armazenará a expressão usando letras
+        int indice = 0;             // Índice para percorrer o vetor de valores
+
+        foreach (string dado in dados)
         {
             double num;
-            if (double.TryParse(tok, System.Globalization.NumberStyles.Any,
-                                System.Globalization.CultureInfo.InvariantCulture, out num))
+            if (double.TryParse(dado, out num))     // Verifica se o dado é um número
             {
-                if (letraIdx >= 26)
-                    throw new Exception("Expressão possui mais de 26 operandos distintos.");
-                valores[letraIdx] = num;
-                sb.Append((char)('A' + letraIdx));
-                letraIdx++;
+                if (indice >= 26)
+                    throw new Exception("Expressão possui mais de 26 operandos");
+
+                valores[indice] = num;      // Armazena o valor do operando no vetor
+                texto += (char)('A' + indice);  // Substitui o valor do operando por uma letra 
+                indice++;
             }
             else
             {
-                sb.Append(tok);
+                texto += dado;  // Adiciona o operador ou parêntese à expressão
             }
         }
-        infixaLetras = sb.ToString();
+        letrasInfixa = texto;   // Retorna a expressão com letras
     }
 
 
     // Método que verifica se o caractere é um operador
-    private bool EhOperador(char caractere) 
+    private static bool EhOperador(char caractere)
     {
         return caractere == '+' || caractere == '-' || caractere == '*' || caractere == '/' || caractere == '^' ||
                 caractere == '(' || caractere == ')';
@@ -116,21 +117,19 @@ public class ResultadoCalculo
     // antes do operador que acabou de ser lido da expressão
     private bool DeveDesempilhar(char topo, char lido)
     {
-        if (lido == '(')    // Se o operador lido for '(', não desempilha nada, apenas empilha
+        if (lido == '(' || topo == ')')    // Se o operador lido ou no topo for '(', não desempilha nada, apenas empilha
             return false;
 
-        if (topo == '(')    // Se o operador no topo da pilha for '(', não desempilha nada, apenas empilha
-            return false;
+        if (lido == '^')
+            return false; // Se o operador lido for '^', não desempilha nada, apenas empilha
 
         // Obtém o nível de prioridade dos operadores
         int prioridadeTopo = Prioridade(topo);
         int prioridadeLido = Prioridade(lido);
 
-        if (lido == '^')
-            return prioridadeTopo > prioridadeLido;
-
-        return prioridadeTopo >= prioridadeLido;
+        return prioridadeTopo >= prioridadeLido;    // Se o operador no topo da pilha tiver prioridade maior ou igual ao operador lido, desempilha
     }
+
 
     // Método que devolve a prioridade de um operando
     private static int Prioridade(char operador)
@@ -145,6 +144,7 @@ public class ResultadoCalculo
             default: return 0;
         }
     }
+
 
     string ConverterInfixaParaPosfixa(string cadeiaLida)
     {
@@ -161,32 +161,26 @@ public class ResultadoCalculo
             }
             else // símbolo é operador ou parêntese
             {
-                bool parar = false;
-
-                while (!parar && !umaPilha.EstaVazia && DeveDesempilhar(umaPilha.oTopo(), simboloLido))
+                if (simboloLido == ')')
                 {
-                    char operadorComMaiorPrecedencia = umaPilha.Desempilhar();
-                    if (operadorComMaiorPrecedencia != '(')
+                    // Desempilha tudo até achar o '(' correspondente
+                    while (!umaPilha.EstaVazia && umaPilha.oTopo() != '(')
                     {
-                        resultado += operadorComMaiorPrecedencia;
+                        resultado += umaPilha.Desempilhar();
                     }
-                    else
-                    {
-                        parar = true;
-                    }
-                }
 
-                if (simboloLido != ')')
-                {
-                    umaPilha.Empilhar(simboloLido);
+                    if (umaPilha.EstaVazia)
+                        throw new Exception("Parênteses fechados incorretamente.");
+
+                    umaPilha.Desempilhar(); // Remove o '(' da pilha
                 }
                 else
                 {
-                    // Se o símbolo lido for ')', remove o '(' correspondente que sobrou no topo da pilha
-                    if (!umaPilha.EstaVazia && umaPilha.oTopo() == '(')
+                    while (!umaPilha.EstaVazia && DeveDesempilhar(umaPilha.oTopo(), simboloLido))
                     {
-                        umaPilha.Desempilhar();
+                        resultado += umaPilha.Desempilhar();
                     }
+                    umaPilha.Empilhar(simboloLido);
                 }
             }
         } // fim do for
@@ -204,6 +198,8 @@ public class ResultadoCalculo
         return resultado;
     }
 
+
+    // Método que calcula o valor de uma subexpressão (ex: operando1 + operando2)
     private static double ValorDaSubExpressao(double op1, char operador, double op2)
     {
         switch (operador)
@@ -212,7 +208,7 @@ public class ResultadoCalculo
             case '-': return op1 - op2;
             case '*': return op1 * op2;
             case '/':
-                if (op2 == 0) 
+                if (op2 == 0)
                     throw new Exception("Não é possível dividir por zero.");
                 return op1 / op2;
             case '^': return Math.Pow(op1, op2);
@@ -230,14 +226,13 @@ public class ResultadoCalculo
 
             if (!EhOperador(simbolo)) // É Operando (Letra de 'A' a 'Z')
             {
-                // Subtrai o caractere 'A' para descobrir o índice correto no vetor.
-                // Exemplo: 'A' - 'A' = 0; 'B' - 'A' = 1; 'C' - 'A' = 2...
+                // Subtrai o caractere 'A' para descobrir o índice correto no vetor
                 int indice = simbolo - 'A';
                 umaPilha.Empilhar(valoresOperandos[indice]);
             }
             else // É Operador (+, -, *, /, ^)
             {
-                // ATENÇÃO: O primeiro elemento desempilhado é o SEGUNDO operando da conta
+                // O primeiro elemento desempilhado é o segundo operando da conta
                 double operando2 = umaPilha.Desempilhar();
                 double operando1 = umaPilha.Desempilhar();
 
@@ -253,26 +248,26 @@ public class ResultadoCalculo
         return umaPilha.Desempilhar();
     }
 
-    public static ResultadoCalculo Calcular(string expressaoDigitada)
+    public static CalcularResultado Calcular(string expressaoDigitada)
     {
         // Criamos uma instância temporária da classe para poder acessar os métodos que não são estáticos
-        var motor = new ResultadoCalculo("", "", new double[0], 0);
+        var calc = new CalcularResultado("", "", new double[0], 0);
 
-        // 1. Tokeniza a expressão usando o método da instância
-        var tokens = motor.LerCadeia(expressaoDigitada);
+        // Lê a expressão usando o método da instância
+        var dados = calc.LerCadeia(expressaoDigitada);
 
-        // 2. Cria o vetor de valores reais e substitui por letras (Método estático)
+        // Cria o vetor de valores reais e substitui por letras 
         double[] valores;
         string infixaLetras;
-        CriarVetorEInfixa(tokens, out valores, out infixaLetras);
+        CriarVetorEInfixa(dados, out valores, out infixaLetras);
 
-        // 3. Converte a cadeia de letras infixa para pós-fixa usando a instância
-        string posfixa = motor.ConverterInfixaParaPosfixa(infixaLetras);
+        // Converte a cadeia de letras infixa para pós-fixa usando a instância
+        string posfixa = calc.ConverterInfixaParaPosfixa(infixaLetras);
 
-        // 4. Avalia o resultado final da expressão pós-fixa usando a instância
-        double resultado = motor.ValorDaExpressaoPosfixa(posfixa, valores);
+        // Avalia o resultado final da expressão pós-fixa usando a instância
+        double resultado = calc.ValorDaExpressaoPosfixa(posfixa, valores);
 
-        // 5. Retorna o objeto final com todos os dados calculados com sucesso
-        return new ResultadoCalculo(infixaLetras, posfixa, valores, resultado);
+        // Retorna o objeto final com todos os dados calculados com sucesso
+        return new CalcularResultado(infixaLetras, posfixa, valores, resultado);
     }
 }
